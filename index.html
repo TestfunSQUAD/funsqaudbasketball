@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fun Squad - كرة السلة للبنات</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --pink: #e84f9e;
+      --pink2: #ff2d78;
+      --pink-light: #f472b6;
+      --pink-glow: rgba(232,79,158,0.45);
+      --black: #030308;
+      --dark: #0a0a12;
+      --card: #0e0e1a;
+      --bronze: #cd7f32;
+      --silver: #aabac8;
+      --gold: #f5c518;
+      --basic: #7c6fff;
+      --text: #f0f0f0;
+      --muted: #888;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Cairo',sans-serif;
+      background:var(--black);
+      color:var(--text);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before{
+      content:'';position:fixed;inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events:none;z-index:0;opacity:0.6;
+    }
+
+    /* ── AURORA BG ── */
+    .aurora{
+      position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+    }
+    .aurora-orb{
+      position:absolute;border-radius:50%;filter:blur(80px);
+      animation:drift 12s ease-in-out infinite alternate;
+    }
+    .aurora-orb:nth-child(1){
+      width:600px;height:600px;top:-200px;right:-100px;
+      background:radial-gradient(circle,rgba(232,79,158,0.18),transparent 70%);
+      animation-duration:14s;
+    }
+    .aurora-orb:nth-child(2){
+      width:500px;height:500px;bottom:-150px;left:-100px;
+      background:radial-gradient(circle,rgba(124,111,255,0.12),transparent 70%);
+      animation-duration:18s;animation-delay:-6s;
+    }
+    .aurora-orb:nth-child(3){
+      width:350px;height:350px;top:40%;left:50%;transform:translateX(-50%);
+      background:radial-gradient(circle,rgba(255,45,120,0.08),transparent 70%);
+      animation-duration:10s;animation-delay:-3s;
+    }
+    @keyframes drift{
+      from{transform:translate(0,0) scale(1)}
+      to{transform:translate(40px,60px) scale(1.1)}
+    }
+
+    /* ── GRID LINES ── */
+    .grid-lines{
+      position:fixed;inset:0;z-index:0;pointer-events:none;
+      background-image:
+        linear-gradient(rgba(232,79,158,0.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(232,79,158,0.04) 1px,transparent 1px);
+      background-size:60px 60px;
+    }
+
+    .container{max-width:1100px;margin:0 auto;padding:0 24px;position:relative;z-index:2}
+
+    /* ── NAV ── */
+    nav{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:18px 32px;position:sticky;top:0;z-index:100;
+      border-bottom:1px solid rgba(232,79,158,0.1);
+      backdrop-filter:blur(20px);
+      background:rgba(3,3,8,0.7);
+      flex-wrap:wrap;gap:10px;
+    }
+    .nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit}
+    .nav-logo img{
+      width:52px;height:52px;border-radius:50%;
+      border:2px solid var(--pink);
+      box-shadow:0 0 20px var(--pink-glow),0 0 60px rgba(232,79,158,0.2);
+      animation:logoGlow 3s ease-in-out infinite;
+    }
+    @keyframes logoGlow{
+      0%,100%{box-shadow:0 0 20px var(--pink-glow),0 0 60px rgba(232,79,158,0.2)}
+      50%{box-shadow:0 0 30px var(--pink-glow),0 0 80px rgba(232,79,158,0.35)}
+    }
+    .nav-logo-text .brand{
+      font-family:'Bebas Neue',cursive;
+      font-size:1.6rem;letter-spacing:3px;
+      background:linear-gradient(135deg,#fff 30%,var(--pink-light));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    }
+    .nav-logo-text .tagline{font-size:0.75rem;color:var(--muted)}
+    .nav-pill{
+      background:rgba(232,79,158,0.1);border:1px solid rgba(232,79,158,0.3);
+      color:var(--pink-light);font-size:0.8rem;padding:5px 14px;border-radius:30px;
+    }
+
+    /* ── HERO ── */
+    .hero{
+      min-height:90vh;display:flex;align-items:center;justify-content:center;
+      text-align:center;padding:80px 24px 60px;position:relative;z-index:1;
+      flex-direction:column;
+    }
+    .hero-badge{
+      display:inline-flex;align-items:center;gap:8px;
+      background:rgba(232,79,158,0.08);border:1px solid rgba(232,79,158,0.3);
+      color:var(--pink-light);font-size:0.82rem;padding:8px 22px;border-radius:30px;
+      margin-bottom:36px;letter-spacing:2px;text-transform:uppercase;
+      animation:fadeUp .6s ease both;
+    }
+    .hero-badge::before{
+      content:'';width:8px;height:8px;border-radius:50%;background:var(--pink);
+      animation:blink 1.5s ease-in-out infinite;box-shadow:0 0 8px var(--pink);
+    }
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+
+    .hero h1{
+      font-size:clamp(3rem,8vw,6rem);font-weight:900;line-height:1.05;
+      margin-bottom:24px;animation:fadeUp .7s ease both .1s;
+      position:relative;
+    }
+    .hero h1 .line1{display:block;color:#fff}
+    .hero h1 .line2{
+      display:block;
+      background:linear-gradient(135deg,var(--pink2),var(--pink),var(--pink-light));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      font-family:'Bebas Neue',cursive;letter-spacing:4px;font-size:clamp(3.5rem,9vw,7rem);
+      animation:shimmer 3s ease infinite;
+      background-size:200% 100%;
+    }
+    @keyframes shimmer{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    .hero-sub{
+      font-size:1.1rem;color:#aaa;max-width:560px;margin:0 auto 40px;
+      line-height:1.9;animation:fadeUp .8s ease both .2s;
+    }
+
+    .hero-cta-group{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;animation:fadeUp .9s ease both .3s}
+
+    .btn-primary{
+      display:inline-flex;align-items:center;gap:10px;
+      background:linear-gradient(135deg,#25d366,#128c7e);
+      color:#fff;font-size:1rem;font-weight:700;padding:14px 30px;
+      border-radius:50px;text-decoration:none;
+      box-shadow:0 8px 30px rgba(37,211,102,0.4);
+      transition:transform .2s,box-shadow .2s;
+      border:none;cursor:pointer;
+    }
+    .btn-primary:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(37,211,102,0.55)}
+
+    .btn-secondary{
+      display:inline-flex;align-items:center;gap:8px;
+      background:transparent;color:var(--pink-light);font-size:1rem;font-weight:700;
+      padding:14px 30px;border-radius:50px;text-decoration:none;
+      border:1px solid rgba(232,79,158,0.5);
+      transition:all .2s;
+    }
+    .btn-secondary:hover{background:rgba(232,79,158,0.08);border-color:var(--pink);transform:translateY(-4px)}
+
+    /* ── FLOATING BALLS ── */
+    .float-balls{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+    .float-ball{
+      position:absolute;font-size:2rem;opacity:0.07;
+      animation:floatBall 8s ease-in-out infinite;
+    }
+    .float-ball:nth-child(1){top:15%;left:8%;animation-delay:0s;font-size:3rem}
+    .float-ball:nth-child(2){top:60%;left:5%;animation-delay:-3s;font-size:1.5rem}
+    .float-ball:nth-child(3){top:25%;right:6%;animation-delay:-1.5s;font-size:2.5rem}
+    .float-ball:nth-child(4){bottom:20%;right:8%;animation-delay:-5s;font-size:4rem}
+    .float-ball:nth-child(5){top:45%;right:12%;animation-delay:-2s;font-size:1.8rem}
+    @keyframes floatBall{
+      0%,100%{transform:translateY(0) rotate(0deg)}
+      33%{transform:translateY(-20px) rotate(15deg)}
+      66%{transform:translateY(10px) rotate(-10deg)}
+    }
+
+    /* ── SECTION TITLE ── */
+    .section-title{text-align:center;margin-bottom:60px;position:relative;z-index:1}
+    .section-title h2{
+      font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;margin-bottom:12px;
+      animation:fadeUp .6s ease both;
+    }
+    .section-title p{color:var(--muted);font-size:1rem;animation:fadeUp .7s ease both .1s}
+    .accent-line{
+      display:block;width:80px;height:3px;margin:16px auto 0;border-radius:2px;
+      background:linear-gradient(90deg,var(--pink),var(--pink-light),transparent);
+      animation:expandLine .8s ease both .2s;
+    }
+    @keyframes expandLine{from{width:0;opacity:0}to{width:80px;opacity:1}}
+
+    /* ── PACKAGES ── */
+    .packages{padding:30px 0 100px;position:relative;z-index:1}
+    .packages-grid{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:20px;align-items:start;
+    }
+
+    .pkg-card{
+      background:var(--card);border-radius:28px;
+      padding:36px 24px;text-decoration:none;color:inherit;display:block;
+      position:relative;overflow:hidden;cursor:pointer;
+      border:1px solid rgba(255,255,255,0.06);
+      transition:transform .35s cubic-bezier(.34,1.56,.64,1),border-color .3s,box-shadow .3s;
+      animation:fadeUp .6s ease both;
+    }
+
+    /* SHIMMER EFFECT on cards */
+    .pkg-card::after{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.04) 50%,transparent 60%);
+      transform:translateX(-100%);transition:transform .6s ease;
+    }
+    .pkg-card:hover::after{transform:translateX(100%)}
+
+    /* TOP ACCENT BAR */
+    .pkg-card::before{
+      content:'';position:absolute;top:0;left:0;right:0;height:3px;
+      border-radius:28px 28px 0 0;
+    }
+    .pkg-card:hover{transform:translateY(-12px) scale(1.02)}
+
+    /* POPULAR BADGE */
+    .popular-badge{
+      position:absolute;top:20px;left:20px;
+      background:linear-gradient(135deg,var(--pink2),var(--pink));
+      color:#fff;font-size:0.72rem;font-weight:700;padding:4px 12px;border-radius:20px;
+      letter-spacing:0.5px;box-shadow:0 4px 16px rgba(232,79,158,0.4);
+      animation:pulseBadge 2s ease-in-out infinite;
+    }
+    @keyframes pulseBadge{
+      0%,100%{box-shadow:0 4px 16px rgba(232,79,158,0.4)}
+      50%{box-shadow:0 4px 24px rgba(232,79,158,0.7)}
+    }
+
+    .pkg-icon{font-size:2.8rem;margin-bottom:16px;display:block}
+    .pkg-tier{font-size:0.78rem;color:var(--muted);font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+    .pkg-name{font-size:1.5rem;font-weight:900;margin-bottom:16px}
+    .pkg-price{
+      font-family:'Bebas Neue',cursive;
+      font-size:3.2rem;letter-spacing:1px;margin-bottom:4px;
+      line-height:1;
+    }
+    .pkg-price span{font-family:'Cairo',sans-serif;font-size:0.85rem;font-weight:400;color:var(--muted);margin-right:4px}
+    .pkg-includes{list-style:none;margin:20px 0 24px;display:flex;flex-direction:column;gap:10px}
+    .pkg-includes li{
+      display:flex;align-items:center;gap:10px;font-size:0.88rem;color:#ccc;
+      padding:10px 14px;background:rgba(255,255,255,0.04);border-radius:12px;
+      border:1px solid rgba(255,255,255,0.05);
+    }
+    .pkg-includes li::before{content:'✓';font-weight:900;font-size:0.8rem;flex-shrink:0}
+
+    .pkg-btn{
+      display:flex;align-items:center;justify-content:center;gap:8px;
+      width:100%;padding:13px;border-radius:16px;font-size:0.9rem;font-weight:700;
+      letter-spacing:0.5px;transition:all .2s;
+    }
+
+    /* BASIC */
+    .pkg-basic::before{background:linear-gradient(90deg,var(--basic),#a89fff)}
+    .pkg-basic .pkg-price{color:var(--basic)}
+    .pkg-basic .pkg-includes li::before{color:var(--basic)}
+    .pkg-basic .pkg-btn{background:linear-gradient(135deg,var(--basic),#a89fff);color:#fff;box-shadow:0 6px 24px rgba(124,111,255,0.35)}
+    .pkg-basic:hover{border-color:rgba(124,111,255,0.5);box-shadow:0 24px 60px rgba(124,111,255,0.25)}
+
+    /* BRONZE */
+    .pkg-bronze::before{background:linear-gradient(90deg,var(--bronze),#e9a96e)}
+    .pkg-bronze .pkg-price{color:var(--bronze)}
+    .pkg-bronze .pkg-includes li::before{color:var(--bronze)}
+    .pkg-bronze .pkg-btn{background:linear-gradient(135deg,var(--bronze),#e9a96e);color:#1a0800;box-shadow:0 6px 24px rgba(205,127,50,0.35)}
+    .pkg-bronze:hover{border-color:rgba(205,127,50,0.5);box-shadow:0 24px 60px rgba(205,127,50,0.2)}
+
+    /* SILVER */
+    .pkg-silver{
+      transform:scale(1.05);
+      border-color:rgba(170,186,200,0.25);
+      box-shadow:0 24px 70px rgba(170,186,200,0.15);
+    }
+    .pkg-silver::before{background:linear-gradient(90deg,var(--silver),#d0dde8)}
+    .pkg-silver .pkg-price{color:var(--silver)}
+    .pkg-silver .pkg-includes li::before{color:var(--silver)}
+    .pkg-silver .pkg-btn{background:linear-gradient(135deg,var(--silver),#d0dde8);color:#0d1520;box-shadow:0 6px 24px rgba(170,186,200,0.35)}
+    .pkg-silver:hover{transform:scale(1.05) translateY(-12px);border-color:rgba(170,186,200,0.6);box-shadow:0 30px 80px rgba(170,186,200,0.3)}
+
+    /* GOLD */
+    .pkg-gold::before{background:linear-gradient(90deg,#b8860b,var(--gold),#fff8a0)}
+    .pkg-gold .pkg-price{
+      background:linear-gradient(135deg,#b8860b,var(--gold),#fff8a0);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    }
+    .pkg-gold .pkg-includes li::before{color:var(--gold)}
+    .pkg-gold .pkg-btn{background:linear-gradient(135deg,#b8860b,var(--gold));color:#1a1000;box-shadow:0 6px 24px rgba(245,197,24,0.35)}
+    .pkg-gold:hover{border-color:rgba(245,197,24,0.5);box-shadow:0 24px 60px rgba(245,197,24,0.25)}
+    .pkg-gold .pkg-name{
+      background:linear-gradient(135deg,#b8860b,var(--gold));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    }
+
+    /* ── WHY SECTION ── */
+    .why-section{
+      padding:80px 0;position:relative;z-index:1;
+      border-top:1px solid rgba(255,255,255,0.04);
+    }
+    .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:20px}
+    .why-item{
+      text-align:center;padding:36px 24px;
+      background:var(--card);border-radius:24px;
+      border:1px solid rgba(255,255,255,0.05);
+      position:relative;overflow:hidden;
+      transition:transform .3s ease,border-color .3s;
+      animation:fadeUp .6s ease both;
+    }
+    .why-item:hover{transform:translateY(-8px);border-color:rgba(232,79,158,0.2)}
+    .why-item::before{
+      content:'';position:absolute;top:-40px;right:-40px;
+      width:120px;height:120px;border-radius:50%;
+      background:radial-gradient(circle,rgba(232,79,158,0.08),transparent 70%);
+    }
+    .why-item .icon{
+      font-size:2.8rem;margin-bottom:18px;display:block;
+      animation:iconBounce 2s ease-in-out infinite;
+    }
+    @keyframes iconBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    .why-item:nth-child(2) .icon{animation-delay:-.7s}
+    .why-item:nth-child(3) .icon{animation-delay:-1.4s}
+    .why-item h4{font-size:1.05rem;font-weight:800;margin-bottom:10px;color:#fff}
+    .why-item p{font-size:0.88rem;color:var(--muted);line-height:1.8}
+
+    /* ── FOOTER ── */
+    footer{
+      text-align:center;padding:48px 24px;
+      border-top:1px solid rgba(255,255,255,0.04);
+      color:var(--muted);font-size:0.85rem;position:relative;z-index:1;
+    }
+    .footer-glow{
+      display:inline-block;color:var(--pink-light);font-weight:700;
+      text-shadow:0 0 20px rgba(232,79,158,0.5);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp{
+      from{opacity:0;transform:translateY(28px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1050px){
+      .packages-grid{grid-template-columns:repeat(2,1fr);max-width:680px;margin:0 auto}
+    }
+    @media(max-width:680px){
+      .why-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:860px){
+      .packages-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto}
+      .pkg-silver{transform:scale(1)}
+      .pkg-silver:hover{transform:translateY(-12px) scale(1.02)}
+    }
+    @media(max-width:600px){
+      nav{padding:12px 16px}
+      .nav-logo img{width:42px;height:42px}
+      .hero{min-height:auto;padding:60px 16px 40px}
+      .packages{padding:20px 0 60px}
+      .section-title{margin-bottom:40px}
+      .pkg-card{padding:28px 20px}
+      footer{padding:32px 16px}
+    }
+  </style>
+</head>
+<body>
+  <div class="aurora">
+    <div class="aurora-orb"></div>
+    <div class="aurora-orb"></div>
+    <div class="aurora-orb"></div>
+  </div>
+  <div class="grid-lines"></div>
+
+  <nav>
+    <div class="nav-logo">
+      <img src="data:image/jpeg;base64,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" alt="Fun Squad Logo"/>
+      <div class="nav-logo-text">
+        <div class="brand">FUN SQUAD</div>
+        <div class="tagline">أول مجتمع كرة سلة للبنات في الاردن 🏀</div>
+      </div>
+    </div>
+    <div class="nav-pill">للبنات فقط 🏀</div>
+  </nav>
+
+  <div class="container">
+    <section class="hero">
+      <div class="float-balls">
+        <span class="float-ball">🏀</span>
+        <span class="float-ball">🏀</span>
+        <span class="float-ball">🏀</span>
+        <span class="float-ball">🏀</span>
+        <span class="float-ball">🏀</span>
+      </div>
+      <div class="hero-badge">🏀 للبنات فقط</div>
+      <h1>
+        <span class="line1">طاقة تدريب</span>
+        <span class="line2">تطور.</span>
+      </h1>
+      <p class="hero-sub">ما عندك حدا تلعبي معه؟ احنا بنلم الفريق انضمي لـ Fun Squad واستمتعي بلعب كرة السلة مع بنات زيك كل خميس 🧡</p>
+      <div class="hero-cta-group">
+        <a href="https://chat.whatsapp.com/LtSps2xKTC04yBVjdgWu88" target="_blank" class="btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.122.554 4.118 1.523 5.851L.057 23.176a.75.75 0 00.917.917l5.337-1.464A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.722 9.722 0 01-4.964-1.363l-.355-.212-3.668 1.006 1.008-3.582-.232-.368A9.75 9.75 0 1112 21.75z"/></svg>
+          Girls Community 💚
+        </a>
+        <a href="#packages" class="btn-secondary">اختاري باقتك ↓</a>
+      </div>
+    </section>
+
+    <section class="packages" id="packages">
+      <div class="section-title">
+        <h2>اختاري باقتك 🏆</h2>
+        <p>4 باقات مصممة لكل مستوى وميزانية</p>
+        <span class="accent-line"></span>
+      </div>
+      <div class="packages-grid">
+
+        <!-- BASIC -->
+        <a href="basic.html" class="pkg-card pkg-basic" style="animation-delay:.1s">
+          <div class="popular-badge">⭐ الأكثر شعبية</div>
+          <span class="pkg-icon">🏀</span>
+          <div class="pkg-tier">الباقة الأساسية</div>
+          <div class="pkg-name">لعبة واحدة</div>
+          <div class="pkg-price">4 <span>دنانير / قيم</span></div>
+          <ul class="pkg-includes">
+            <li>قيم كرة سلة واحد</li>
+            <li>عيشي الجو مع Fun Squad</li>
+          </ul>
+          <div class="pkg-btn">احجزي الآن ←</div>
+        </a>
+
+        <!-- BRONZE -->
+        <a href="bronze.html" class="pkg-card pkg-bronze" style="animation-delay:.2s">
+          <span class="pkg-icon">🥉</span>
+          <div class="pkg-tier">الباقة الأولى</div>
+          <div class="pkg-name">البرونزية</div>
+          <div class="pkg-price">35 <span>دينار / شهر</span></div>
+          <ul class="pkg-includes">
+            <li>4 حصص تدريب كرة سلة</li>
+            <li>2 قيمات كرة سلة</li>
+          </ul>
+          <div class="pkg-btn">اشتركي الآن ←</div>
+        </a>
+
+        <!-- SILVER -->
+        <a href="silver.html" class="pkg-card pkg-silver" style="animation-delay:.3s">
+          <div class="popular-badge">⭐ الأكثر شعبية</div>
+          <span class="pkg-icon">🥈</span>
+          <div class="pkg-tier">الباقة الثانية</div>
+          <div class="pkg-name">الفضية</div>
+          <div class="pkg-price">55 <span>دينار / شهر</span></div>
+          <ul class="pkg-includes">
+            <li>6 حصص تدريب كرة سلة</li>
+            <li>5 قيمات كرة سلة</li>
+          </ul>
+          <div class="pkg-btn">اشتركي الآن ←</div>
+        </a>
+
+        <!-- GOLD -->
+        <a href="gold.html" class="pkg-card pkg-gold" style="animation-delay:.4s">
+          <span class="pkg-icon">🥇</span>
+          <div class="pkg-tier">الباقة الثالثة</div>
+          <div class="pkg-name">الذهبية</div>
+          <div class="pkg-price">80 <span>دينار / شهرين</span></div>
+          <ul class="pkg-includes">
+            <li>10 حصة تدريبية</li>
+            <li>5 قيمات كرة سلة</li>
+          </ul>
+          <div class="pkg-btn">اشتركي الآن ←</div>
+        </a>
+
+      </div>
+    </section>
+
+    <section class="why-section">
+      <div class="section-title">
+        <h2>ليش Fun Squad؟</h2>
+        <span class="accent-line"></span>
+      </div>
+      <div class="why-grid">
+        <div class="why-item" style="animation-delay:.1s">
+          <span class="icon">🏀</span>
+          <h4>احترافية عالية</h4>
+          <p>تحت اشراف مدرب وحكم مختص في الاتحاد الاردني لكرة السلة</p>
+        </div>
+        <div class="why-item" style="animation-delay:.2s">
+          <span class="icon">👯‍♀️</span>
+          <h4>الفريق علينا</h4>
+          <p>ما محتاجة تجيبي فريق، احنا نوفرلك بنات يلعبن معك كل خميس</p>
+        </div>
+        <div class="why-item" style="animation-delay:.3s">
+          <span class="icon">📅</span>
+          <h4>حجز منتظم كل خميس</h4>
+          <p>حجوزات ثابتة كل أسبوع بدون ما تحتاجي تدوري على ملعب أو تنسقي</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <span class="footer-glow">Fun Squad</span> — كرة السلة للبنات 🏀 | جميع الحقوق محفوظة © 2025
+  </footer>
+</body>
+</html>
