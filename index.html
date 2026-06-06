@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fun Squad - كرة السلة للبنات</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --pink: #e84f9e;
+        --pink-light: #f472b6;
+        --pink-glow: rgba(232, 79, 158, 0.35);
+        --black: #050505;
+        --dark: #0d0d0d;
+        --card-bg: #111111;
+        --bronze: #cd7f32;
+        --silver: #aabac8;
+        --gold: #f5c518;
+        --basic: #7c6fff;
+        --basic-light: #a89fff;
+        --text: #f0f0f0;
+        --muted: #888;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Cairo", sans-serif;
+        background: var(--black);
+        color: var(--text);
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 60% 40% at 80% 10%,
+            rgba(232, 79, 158, 0.12) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse 50% 50% at 20% 80%,
+            rgba(232, 79, 158, 0.08) 0%,
+            transparent 60%
+          );
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 79px,
+            rgba(232, 79, 158, 0.04) 80px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 79px,
+            rgba(232, 79, 158, 0.04) 80px
+          );
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 24px;
+        position: relative;
+        z-index: 1;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 24px;
+        position: relative;
+        z-index: 2;
+        border-bottom: 1px solid rgba(232, 79, 158, 0.15);
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .nav-logo img {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        border: 2px solid var(--pink);
+        box-shadow: 0 0 18px var(--pink-glow);
+      }
+
+      .nav-logo span {
+        font-size: 1.5rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, #fff 30%, var(--pink-light));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: 1px;
+      }
+
+      .nav-tagline {
+        font-size: 0.85rem;
+        color: var(--muted);
+        font-weight: 400;
+      }
+
+      .hero {
+        text-align: center;
+        padding: 80px 24px 60px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-badge {
+        display: inline-block;
+        background: rgba(232, 79, 158, 0.12);
+        border: 1px solid rgba(232, 79, 158, 0.35);
+        color: var(--pink-light);
+        font-size: 0.82rem;
+        padding: 6px 20px;
+        border-radius: 30px;
+        margin-bottom: 28px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        animation: fadeUp 0.6s ease both;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.4rem, 6vw, 4rem);
+        font-weight: 900;
+        line-height: 1.15;
+        margin-bottom: 20px;
+        animation: fadeUp 0.7s ease both 0.1s;
+      }
+
+      .hero h1 span {
+        background: linear-gradient(135deg, var(--pink), var(--pink-light));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+        color: #bbb;
+        max-width: 540px;
+        margin: 0 auto 32px;
+        line-height: 1.8;
+        animation: fadeUp 0.8s ease both 0.2s;
+      }
+
+      .community-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: linear-gradient(135deg, #25d366, #128c7e);
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 700;
+        padding: 13px 28px;
+        border-radius: 50px;
+        text-decoration: none;
+        box-shadow: 0 6px 24px rgba(37, 211, 102, 0.35);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        animation: fadeUp 0.9s ease both 0.3s;
+        margin-bottom: 12px;
+      }
+
+      .community-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 32px rgba(37, 211, 102, 0.5);
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 56px;
+        animation: fadeUp 0.6s ease both;
+      }
+
+      .section-title h2 {
+        font-size: clamp(1.8rem, 4vw, 2.6rem);
+        font-weight: 900;
+        margin-bottom: 12px;
+      }
+
+      .section-title p {
+        color: var(--muted);
+        font-size: 1rem;
+      }
+
+      .section-title .accent-line {
+        display: block;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--pink), transparent);
+        margin: 14px auto 0;
+        border-radius: 2px;
+      }
+
+      .packages {
+        padding: 20px 0 100px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .packages-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 22px;
+        align-items: start;
+      }
+
+      @media (max-width: 1050px) {
+        .packages-grid {
+          grid-template-columns: repeat(2, 1fr);
+          max-width: 660px;
+          margin: 0 auto;
+        }
+      }
+
+      @media (max-width: 860px) {
+        .packages-grid {
+          grid-template-columns: 1fr;
+          max-width: 420px;
+          margin: 0 auto;
+        }
+        .pkg-silver {
+          transform: scale(1);
+        }
+        .pkg-silver:hover {
+          transform: translateY(-8px);
+        }
+      }
+
+      .pkg-card {
+        background: var(--card-bg);
+        border-radius: 24px;
+        padding: 36px 28px;
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        position: relative;
+        overflow: hidden;
+        transition:
+          transform 0.3s ease,
+          border-color 0.3s,
+          box-shadow 0.3s;
+      }
+
+      .pkg-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        border-radius: 24px 24px 0 0;
+        transition: opacity 0.3s;
+      }
+
+      .pkg-card:hover {
+        transform: translateY(-8px);
+      }
+
+      .pkg-basic::before {
+        background: linear-gradient(90deg, #7c6fff, #a89fff);
+      }
+      .pkg-basic:hover {
+        border-color: rgba(124, 111, 255, 0.5);
+        box-shadow: 0 20px 50px rgba(124, 111, 255, 0.2);
+      }
+
+      .pkg-bronze::before {
+        background: linear-gradient(90deg, #cd7f32, #e9a96e);
+      }
+      .pkg-bronze:hover {
+        border-color: rgba(205, 127, 50, 0.5);
+        box-shadow: 0 20px 50px rgba(205, 127, 50, 0.2);
+      }
+
+      .pkg-silver {
+        transform: scale(1.04);
+        border-color: rgba(170, 186, 200, 0.3);
+        box-shadow: 0 20px 60px rgba(170, 186, 200, 0.12);
+      }
+      .pkg-silver::before {
+        background: linear-gradient(90deg, #aabac8, #d0dde8);
+      }
+      .pkg-silver:hover {
+        transform: scale(1.04) translateY(-8px);
+        border-color: rgba(170, 186, 200, 0.6);
+        box-shadow: 0 30px 70px rgba(170, 186, 200, 0.25);
+      }
+
+      .pkg-gold::before {
+        background: linear-gradient(90deg, #f5c518, #ffe066);
+      }
+      .pkg-gold:hover {
+        border-color: rgba(245, 197, 24, 0.5);
+        box-shadow: 0 20px 50px rgba(245, 197, 24, 0.2);
+      }
+
+      .popular-badge {
+        position: absolute;
+        top: 18px;
+        left: 18px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 4px 12px;
+        border-radius: 20px;
+        letter-spacing: 1px;
+      }
+
+      .pkg-silver .popular-badge {
+        background: linear-gradient(135deg, #aabac8, #d0dde8);
+        color: #111;
+      }
+
+      .pkg-basic .popular-badge {
+        background: linear-gradient(135deg, #7c6fff, #a89fff);
+        color: #0d0a2e;
+      }
+
+      .pkg-icon {
+        width: 58px;
+        height: 58px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        margin-bottom: 22px;
+      }
+
+      .pkg-basic .pkg-icon {
+        background: rgba(124, 111, 255, 0.15);
+      }
+      .pkg-bronze .pkg-icon {
+        background: rgba(205, 127, 50, 0.15);
+      }
+      .pkg-silver .pkg-icon {
+        background: rgba(170, 186, 200, 0.15);
+      }
+      .pkg-gold .pkg-icon {
+        background: rgba(245, 197, 24, 0.15);
+      }
+
+      .pkg-tier {
+        font-size: 0.78rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 8px;
+      }
+
+      .pkg-basic .pkg-tier {
+        color: #a89fff;
+      }
+      .pkg-bronze .pkg-tier {
+        color: #cd7f32;
+      }
+      .pkg-silver .pkg-tier {
+        color: #aabac8;
+      }
+      .pkg-gold .pkg-tier {
+        color: #f5c518;
+      }
+
+      .pkg-name {
+        font-size: 1.5rem;
+        font-weight: 900;
+        margin-bottom: 6px;
+      }
+
+      .pkg-price {
+        font-size: 2.4rem;
+        font-weight: 900;
+        margin: 16px 0 4px;
+        line-height: 1;
+      }
+
+      .pkg-price span {
+        font-size: 1rem;
+        font-weight: 400;
+        color: var(--muted);
+      }
+
+      .pkg-includes {
+        list-style: none;
+        margin: 22px 0 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .pkg-includes li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.92rem;
+        color: #ccc;
+      }
+
+      .pkg-includes li::before {
+        content: "✓";
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.72rem;
+        font-weight: 900;
+        flex-shrink: 0;
+      }
+
+      .pkg-basic .pkg-includes li::before {
+        background: rgba(124, 111, 255, 0.2);
+        color: #a89fff;
+      }
+      .pkg-bronze .pkg-includes li::before {
+        background: rgba(205, 127, 50, 0.2);
+        color: #cd7f32;
+      }
+      .pkg-silver .pkg-includes li::before {
+        background: rgba(170, 186, 200, 0.2);
+        color: #aabac8;
+      }
+      .pkg-gold .pkg-includes li::before {
+        background: rgba(245, 197, 24, 0.2);
+        color: #f5c518;
+      }
+
+      .pkg-btn {
+        display: block;
+        width: 100%;
+        padding: 14px;
+        border-radius: 12px;
+        text-align: center;
+        font-family: "Cairo", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 700;
+        cursor: pointer;
+        border: none;
+        transition:
+          opacity 0.2s,
+          transform 0.2s;
+        text-decoration: none;
+      }
+
+      .pkg-btn:hover {
+        opacity: 0.88;
+        transform: scale(0.98);
+      }
+
+      .pkg-basic .pkg-btn {
+        background: linear-gradient(135deg, #7c6fff, #a89fff);
+        color: #0d0a2e;
+      }
+      .pkg-bronze .pkg-btn {
+        background: linear-gradient(135deg, #cd7f32, #e9a96e);
+        color: #1a0a00;
+      }
+      .pkg-silver .pkg-btn {
+        background: linear-gradient(135deg, #aabac8, #d0dde8);
+        color: #111;
+      }
+      .pkg-gold .pkg-btn {
+        background: linear-gradient(135deg, #f5c518, #ffe066);
+        color: #1a1000;
+      }
+
+      .why-section {
+        padding: 60px 0;
+        position: relative;
+        z-index: 1;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .why-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-top: 40px;
+      }
+
+      @media (max-width: 680px) {
+        .why-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .why-item {
+        text-align: center;
+        padding: 28px 20px;
+        background: var(--card-bg);
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .why-item .icon {
+        font-size: 2.2rem;
+        margin-bottom: 14px;
+      }
+      .why-item h4 {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .why-item p {
+        font-size: 0.85rem;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px 24px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        color: var(--muted);
+        font-size: 0.85rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      footer strong {
+        color: var(--pink-light);
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 860px) {
+        .packages-grid {
+          grid-template-columns: 1fr;
+          max-width: 420px;
+          margin: 0 auto;
+        }
+        .pkg-silver {
+          transform: scale(1);
+        }
+        .pkg-silver:hover {
+          transform: translateY(-8px);
+        }
+      }
+
+      @media (max-width: 600px) {
+        nav {
+          padding: 12px 16px;
+        }
+        .nav-logo img {
+          width: 44px;
+          height: 44px;
+        }
+        .nav-logo span {
+          font-size: 1.2rem;
+        }
+        .nav-tagline {
+          font-size: 0.75rem;
+        }
+        nav > div:last-child {
+          font-size: 0.75rem;
+        }
+
+        .hero {
+          padding: 48px 16px 36px;
+        }
+        .hero-badge {
+          font-size: 0.75rem;
+          padding: 5px 14px;
+          letter-spacing: 1px;
+        }
+        .hero h1 {
+          line-height: 1.4;
+        }
+        .hero p {
+          font-size: 0.95rem;
+        }
+
+        .container {
+          padding: 0 16px;
+        }
+
+        .packages {
+          padding: 16px 0 60px;
+        }
+        .packages-grid {
+          max-width: 100%;
+        }
+        .pkg-card {
+          padding: 28px 20px;
+          border-radius: 18px;
+        }
+
+        .section-title {
+          margin-bottom: 36px;
+        }
+        .section-title h2 {
+          font-size: 1.6rem;
+        }
+
+        .pkg-price {
+          font-size: 2rem;
+        }
+        .pkg-name {
+          font-size: 1.3rem;
+        }
+
+        .why-grid {
+          grid-template-columns: 1fr;
+        }
+        .why-item {
+          padding: 22px 16px;
+        }
+
+        footer {
+          padding: 28px 16px;
+          font-size: 0.8rem;
+        }
+      }
+
+      @media (max-width: 380px) {
+        .nav-logo span {
+          font-size: 1rem;
+        }
+        .hero h1 {
+          font-size: 2rem;
+        }
+        .pkg-card {
+          padding: 22px 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-logo">
+        <img
+          src="data:image/jpeg;base64,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"
+          alt="Fun Squad Logo"
+        />
+        <div>
+          <div><span>FUN SQUAD</span></div>
+          <div class="nav-tagline">أول مجتمع كرة سلة للبنات في الاردن 🏀</div>
+        </div>
+      </div>
+      <div style="color: var(--muted); font-size: 0.85rem"></div>
+    </nav>
+
+    <div class="container">
+      <section class="hero">
+        <div class="hero-badge">🏀 للبنات فقط</div>
+        <h1>طاقة تدريب <span>تطور.</span></h1>
+        <p>
+          ما عندك حدا تلعبي معه؟ احنا بنلم الفريق انضمي لـ Fun Squad واستمتعي
+          بلعب كرة السلة مع بنات زيك كل خميس 🧡
+        </p>
+        <a
+          href="https://chat.whatsapp.com/LtSps2xKTC04yBVjdgWu88"
+          target="_blank"
+          class="community-btn"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"
+            />
+            <path
+              d="M12 0C5.373 0 0 5.373 0 12c0 2.122.554 4.118 1.523 5.851L.057 23.176a.75.75 0 00.917.917l5.337-1.464A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.722 9.722 0 01-4.964-1.363l-.355-.212-3.668 1.006 1.008-3.582-.232-.368A9.75 9.75 0 1112 21.75z"
+            />
+          </svg>
+          Girls Community 💚
+        </a>
+      </section>
+
+      <section class="packages">
+        <div class="section-title">
+          <h2>اختاري باقتك 🏆</h2>
+          <p>4 باقات مصممة لكل مستوى وميزانية</p>
+          <span class="accent-line"></span>
+        </div>
+
+        <div class="packages-grid">
+          <!-- BASIC -->
+          <a href="basic.html" class="pkg-card pkg-basic">
+            <div class="popular-badge">⭐ الأكثر شعبية</div>
+            <div class="pkg-icon">🏀</div>
+            <div class="pkg-tier">الباقة الأساسية</div>
+            <div class="pkg-name">لعبة واحدة</div>
+            <div class="pkg-price">4 <span>دنانير / قيم</span></div>
+            <ul class="pkg-includes">
+              <li>قيم كرة سلة واحد</li>
+              <li>عيشي الجو مع Fun Squad</li>
+            </ul>
+            <div class="pkg-btn">احجزي الآن ←</div>
+          </a>
+
+          <!-- BRONZE -->
+          <a href="bronze.html" class="pkg-card pkg-bronze">
+            <div class="pkg-icon">🥉</div>
+            <div class="pkg-tier">الباقة الأولى</div>
+            <div class="pkg-name">البرونزية</div>
+            <div class="pkg-price">35 <span>دينار / شهر</span></div>
+            <ul class="pkg-includes">
+              <li>4 حصص تدريب كرة سلة</li>
+              <li>2 قيمات كرة سلة</li>
+            </ul>
+            <div class="pkg-btn">اشتركي الآن ←</div>
+          </a>
+
+          <!-- SILVER -->
+          <a href="silver.html" class="pkg-card pkg-silver">
+            <div class="popular-badge">⭐ الأكثر شعبية</div>
+            <div class="pkg-icon">🥈</div>
+            <div class="pkg-tier">الباقة الثانية</div>
+            <div class="pkg-name">الفضية</div>
+            <div class="pkg-price">55 <span>دينار / شهر</span></div>
+            <ul class="pkg-includes">
+              <li>6 حصص تدريب كرة سلة</li>
+              <li>5 قيمات كرة سلة</li>
+            </ul>
+            <div class="pkg-btn">اشتركي الآن ←</div>
+          </a>
+
+          <!-- GOLD -->
+          <a href="gold.html" class="pkg-card pkg-gold">
+            <div class="pkg-icon">🥇</div>
+            <div class="pkg-tier">الباقة الثالثة</div>
+            <div class="pkg-name">الذهبية</div>
+            <div class="pkg-price">80 <span>دينار / شهرين</span></div>
+            <ul class="pkg-includes">
+              <li>10 حصة تدريبية</li>
+              <li>5 قيمات كرة سلة</li>
+            </ul>
+            <div class="pkg-btn">اشتركي الآن ←</div>
+          </a>
+        </div>
+      </section>
+
+      <section class="why-section">
+        <div class="section-title">
+          <h2>ليش Fun Squad؟</h2>
+          <span class="accent-line"></span>
+        </div>
+        <div class="why-grid">
+          <div class="why-item">
+            <div class="icon">🏀</div>
+            <h4>احترافية عالية</h4>
+            <p>تحت اشراف مدرب وحكم مختص في الاتحاد الاردني لكرة السلة</p>
+          </div>
+          <div class="why-item">
+            <div class="icon">👯‍♀️</div>
+            <h4>الفريق علينا</h4>
+            <p>ما محتاجة تجيبي فريق، احنا نوفرلك بنات يلعبن معك كل خميس</p>
+          </div>
+          <div class="why-item">
+            <div class="icon">📅</div>
+            <h4>حجز منتظم كل خميس</h4>
+            <p>حجوزات ثابتة كل أسبوع بدون ما تحتاجي تدوري على ملعب أو تنسقي</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <strong>Fun Squad</strong> — كرة السلة للبنات 🏀 | جميع الحقوق محفوظة ©
+      2025
+    </footer>
+  </body>
+</html>
