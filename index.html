@@ -106,8 +106,8 @@
       }
 
       .nav-logo img {
-        width: 56px;
-        height: 56px;
+        width: 28px;
+        height: 28px;
         border-radius: 50%;
         border: 2px solid var(--pink);
         box-shadow: 0 0 18px var(--pink-glow);
@@ -143,7 +143,7 @@
         font-size: 0.82rem;
         padding: 6px 20px;
         border-radius: 30px;
-        margin-bottom: 28px;
+        margin-bottom: 20px;
         letter-spacing: 2px;
         text-transform: uppercase;
         animation: fadeUp 0.6s ease both;
@@ -729,7 +729,7 @@
             <div class="pkg-name">مباراة واحدة</div>
             <div class="pkg-price">4 <span>دنانير / مباراة  </span></div>
             <ul class="pkg-includes">
-              <li>مباراة كرة سلة واحدة</li>
+              <li>مباراة كرة سلة واحد</li>
               <li>عيشي الجو مع Fun Squad</li>
             </ul>
             <div class="pkg-btn">احجزي الآن ←</div>
@@ -806,5 +806,45 @@
       <strong>Fun Squad</strong> — كرة السلة للبنات 🏀 | جميع الحقوق محفوظة ©
       2025
     </footer>
-  </body>
+  
+  <!-- Instagram Floating Button -->
+  <a href="https://www.instagram.com/funsquad_basketball/" target="_blank" class="insta-float" title="تابعونا على انستقرام">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+      <circle cx="12" cy="12" r="4.5"/>
+      <circle cx="17.5" cy="6.5" r="1.2" fill="white" stroke="none"/>
+    </svg>
+  </a>
+
+  <style>
+    .insta-float {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 110%, #f9ed32 0%, #ee2a7b 40%, #8228d9 70%, #bc2a8d 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      z-index: 9999;
+      box-shadow: 0 0 0 0 rgba(238,42,123,0.7), 0 4px 20px rgba(238,42,123,0.5);
+      animation: insta-pulse 2.2s infinite;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .insta-float:hover {
+      transform: scale(1.15);
+      box-shadow: 0 0 22px 8px rgba(238,42,123,0.6), 0 6px 28px rgba(238,42,123,0.7);
+      animation: none;
+    }
+    @keyframes insta-pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(238,42,123,0.7), 0 4px 20px rgba(238,42,123,0.4); }
+      50%  { box-shadow: 0 0 0 10px rgba(238,42,123,0), 0 4px 20px rgba(238,42,123,0.4); }
+      100% { box-shadow: 0 0 0 0 rgba(238,42,123,0), 0 4px 20px rgba(238,42,123,0.4); }
+    }
+  </style>
+
+</body>
 </html>
