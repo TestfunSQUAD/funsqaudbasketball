@@ -30,7 +30,7 @@
   .back-btn:hover { color: var(--accent-light); border-color: var(--accent); }
 
   .pkg-hero { text-align: center; padding: 70px 20px 50px; }
-  .tier-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(245,197,24,0.12); border: 1px solid rgba(245,197,24,0.4); color: var(--accent-light); padding: 8px 22px; border-radius: 30px; font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 28px; animation: fadeUp 0.5s ease both; }
+  .tier-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(245,197,24,0.12); border: 1px solid rgba(245,197,24,0.4); color: var(--accent-light); padding: 8px 22px; border-radius: 30px; font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; animation: fadeUp 0.5s ease both; }
   .pkg-hero h1 { font-size: clamp(2.2rem,5vw,3.4rem); font-weight: 900; margin-bottom: 16px; animation: fadeUp 0.6s ease both 0.1s; }
   .pkg-hero h1 span { background: linear-gradient(135deg, var(--accent), var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .price-display { font-size: clamp(3rem,8vw,5rem); font-weight: 900; line-height: 1; background: linear-gradient(135deg, var(--accent), var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 20px 0 6px; animation: fadeUp 0.7s ease both 0.2s; }
@@ -39,7 +39,7 @@
   .features-card { background: var(--card-bg); border-radius: 28px; border: 1px solid rgba(245,197,24,0.25); box-shadow: 0 0 80px rgba(245,197,24,0.08); padding: 44px 40px; margin-bottom: 32px; animation: fadeUp 0.7s ease both 0.3s; position: relative; overflow: hidden; }
   .features-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-light)); }
 
-  .features-title { font-size: 1.1rem; font-weight: 700; color: var(--accent-light); margin-bottom: 28px; display: flex; align-items: center; gap: 10px; }
+  .features-title { font-size: 1.1rem; font-weight: 700; color: var(--accent-light); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
   .feature-list { list-style: none; display: flex; flex-direction: column; gap: 18px; }
   .feature-item { display: flex; align-items: center; gap: 18px; padding: 18px 20px; background: rgba(255,255,255,0.03); border-radius: 14px; border: 1px solid rgba(255,255,255,0.05); transition: border-color 0.2s; }
   .feature-item:hover { border-color: rgba(245,197,24,0.3); }
@@ -48,7 +48,7 @@
   .feature-info p { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
   .feature-count { margin-right: auto; font-size: 1.6rem; font-weight: 900; color: var(--accent); }
 
-  .total-card { background: linear-gradient(135deg, rgba(245,197,24,0.1), rgba(255,224,102,0.08)); border: 1px solid rgba(245,197,24,0.4); border-radius: 20px; padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; animation: fadeUp 0.7s ease both 0.4s; }
+  .total-card { background: linear-gradient(135deg, rgba(245,197,24,0.1), rgba(255,224,102,0.08)); border: 1px solid rgba(245,197,24,0.4); border-radius: 20px; padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; animation: fadeUp 0.7s ease both 0.4s; }
   .total-label { font-size: 1rem; font-weight: 600; }
   .total-label span { display: block; font-size: 0.82rem; color: var(--muted); margin-top: 4px; }
   .total-price { font-size: 2.4rem; font-weight: 900; color: var(--accent); }
@@ -75,7 +75,7 @@
   /* ===== RESPONSIVE ===== */
   @media (max-width: 600px) {
     nav { padding: 12px 16px; }
-    .nav-logo img { width: 40px; height: 40px; }
+    .nav-logo img { width: 28px; height: 28px; }
     .nav-logo span { font-size: 1.1rem; }
     .back-btn { font-size: 0.8rem; padding: 6px 14px; }
 
@@ -169,5 +169,45 @@
 <footer>
   <strong>Fun Squad</strong> — كرة السلة للبنات 🏀
 </footer>
+
+  <!-- Instagram Floating Button -->
+  <a href="https://www.instagram.com/funsquad_basketball/" target="_blank" class="insta-float" title="تابعونا على انستقرام">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+      <circle cx="12" cy="12" r="4.5"/>
+      <circle cx="17.5" cy="6.5" r="1.2" fill="white" stroke="none"/>
+    </svg>
+  </a>
+
+  <style>
+    .insta-float {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 110%, #f9ed32 0%, #ee2a7b 40%, #8228d9 70%, #bc2a8d 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      z-index: 9999;
+      box-shadow: 0 0 0 0 rgba(238,42,123,0.7), 0 4px 20px rgba(238,42,123,0.5);
+      animation: insta-pulse 2.2s infinite;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .insta-float:hover {
+      transform: scale(1.15);
+      box-shadow: 0 0 22px 8px rgba(238,42,123,0.6), 0 6px 28px rgba(238,42,123,0.7);
+      animation: none;
+    }
+    @keyframes insta-pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(238,42,123,0.7), 0 4px 20px rgba(238,42,123,0.4); }
+      50%  { box-shadow: 0 0 0 10px rgba(238,42,123,0), 0 4px 20px rgba(238,42,123,0.4); }
+      100% { box-shadow: 0 0 0 0 rgba(238,42,123,0), 0 4px 20px rgba(238,42,123,0.4); }
+    }
+  </style>
+
 </body>
 </html>
